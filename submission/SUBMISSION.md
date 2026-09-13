@@ -6,6 +6,12 @@
 
 Public repository: https://github.com/do2006/t3n-private-incident-triage-agent
 
+Canonical public submission document: https://github.com/do2006/t3n-private-incident-triage-agent/blob/main/submission/SUBMISSION.md
+
+Verified main commit: `0777c2fbb106846d3e3be8d2beaf5045839f84d6`
+
+GitHub Actions verification: https://github.com/do2006/t3n-private-incident-triage-agent/actions/runs/34788796721
+
 ## What it does
 
 The agent validates sensitive incident reports, enriches only normalized public CVE identifiers against the allowlisted CISA Known Exploited Vulnerabilities feed, calculates a deterministic and explainable severity score, stores sensitive records through a T3N-backed private-store adapter, and returns prioritized remediation guidance with a redacted summary.

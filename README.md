@@ -1,5 +1,7 @@
 # T3N Private Incident Triage Agent
 
+[![CI](https://github.com/do2006/t3n-private-incident-triage-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/do2006/t3n-private-incident-triage-agent/actions/workflows/ci.yml)
+
 A privacy-first enterprise incident triage agent built for the Terminal 3 Network (T3N) Agent Build Challenge.
 
 It validates sensitive incident reports, enriches public CVE identifiers against CISA Known Exploited Vulnerabilities data, calculates an explainable severity score, stores sensitive records behind a private-store interface, and emits only a concise redacted result.
