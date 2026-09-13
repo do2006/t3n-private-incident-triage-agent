@@ -17,3 +17,23 @@ export const incidentSchema = z.object({
 });
 
 export type Incident = z.infer<typeof incidentSchema>;
+
+export const severitySchema = z.enum(['critical', 'high', 'medium', 'low']);
+export type Severity = z.infer<typeof severitySchema>;
+
+export const triageReportSchema = z.object({
+  incidentId: z.string().min(1),
+  score: z.number().min(0).max(100),
+  severity: severitySchema,
+  evidence: z.array(z.string()),
+  remediation: z.array(z.string()),
+  redactedSummary: z.string().min(1),
+  agent: z.object({
+    runtime: z.enum(['memory', 't3n']),
+    did: z.string().optional(),
+    label: z.string().min(1),
+  }),
+});
+
+export type TriageReport = z.infer<typeof triageReportSchema>;
+export type IncidentInput = z.input<typeof incidentSchema>;
