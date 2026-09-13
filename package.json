@@ -1,0 +1,26 @@
+{
+  "name": "t3n-private-incident-triage-agent",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Private enterprise incident triage agent for Terminal 3 Network.",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "demo": "tsx src/cli.ts --input examples/redacted-incident.json --runtime memory"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@terminal3/t3n-sdk": "5.15.2",
+    "zod": "4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "26.5.1",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2",
+    "vitest": "5.0.0"
+  }
+}
