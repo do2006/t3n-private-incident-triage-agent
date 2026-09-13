@@ -1,0 +1,27 @@
+﻿
+> t3n-private-incident-triage-agent@0.1.0 demo
+> tsx src/cli.ts --input examples/redacted-incident.json --runtime memory
+
+{
+  "incidentId": "INC-2026-0913-DEMO",
+  "score": 90,
+  "severity": "critical",
+  "evidence": [
+    "Declared business impact: high.",
+    "Internet exposed: true.",
+    "Active exploitation: true.",
+    "Confidence: 0.90.",
+    "CVE-2025-0282 is listed as known exploited by CISA Known Exploited Vulnerabilities."
+  ],
+  "remediation": [
+    "Isolate affected systems from untrusted networks and preserve evidence.",
+    "Patch or mitigate known-exploited vulnerabilities using vendor and CISA guidance.",
+    "Block observed malicious indicators at relevant control points.",
+    "Validate containment, monitor for recurrence, and document recovery evidence."
+  ],
+  "redactedSummary": "INC-2026-0913-DEMO: Internet-facing identity service shows suspicious authentication activity ΓÇö critical (90/100)",
+  "agent": {
+    "runtime": "memory",
+    "label": "Local deterministic agent"
+  }
+}
