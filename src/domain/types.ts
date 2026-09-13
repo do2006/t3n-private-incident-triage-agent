@@ -5,10 +5,15 @@ const cveSchema = z
   .transform((value) => value.trim().toUpperCase())
   .pipe(z.string().regex(/^CVE-\d{4}-\d{4,}$/));
 
+export const impactSchema = z.enum(['critical', 'high', 'medium', 'low']);
+
 export const incidentSchema = z.object({
   id: z.string().min(1),
   summary: z.string().min(1),
   description: z.string().default(''),
+  impact: impactSchema.default('medium'),
+  internetExposed: z.boolean().default(false),
+  activeExploitation: z.boolean().default(false),
   cves: z.array(cveSchema).default([]),
   indicators: z.array(z.string().min(1)).default([]),
   affectedAssets: z.array(z.string().min(1)).default([]),
@@ -17,6 +22,7 @@ export const incidentSchema = z.object({
 });
 
 export type Incident = z.infer<typeof incidentSchema>;
+export type IncidentInput = z.input<typeof incidentSchema>;
 
 export const severitySchema = z.enum(['critical', 'high', 'medium', 'low']);
 export type Severity = z.infer<typeof severitySchema>;
@@ -36,4 +42,3 @@ export const triageReportSchema = z.object({
 });
 
 export type TriageReport = z.infer<typeof triageReportSchema>;
-export type IncidentInput = z.input<typeof incidentSchema>;
