@@ -1,0 +1,13 @@
+{
+  "id": "INC-2026-0913-DEMO",
+  "summary": "Internet-facing identity service shows suspicious authentication activity",
+  "description": "Synthetic demonstration incident. No production secrets or customer data.",
+  "impact": "high",
+  "internetExposed": true,
+  "activeExploitation": true,
+  "cves": ["CVE-2025-0282"],
+  "indicators": ["198.51.100.24"],
+  "affectedAssets": ["identity-gateway-demo"],
+  "confidence": 0.9,
+  "observedAt": "2026-09-13T19:00:00.000Z"
+}
