@@ -21,7 +21,8 @@ export function createMemoryDependencies(intel: ThreatIntelClient = new CisaKevC
 export type T3nRuntimeOptions = {
   tenantClient: Pick<TenantClient, 'maps'>;
   baseUrl: string;
-  apiKey: string;
+  apiKey?: string;
+  did?: string;
   mapTail?: string;
   intel?: ThreatIntelClient;
 };
@@ -34,6 +35,6 @@ export function createT3nDependencies(options: T3nRuntimeOptions): TriageDepende
   return {
     store,
     intel: options.intel ?? new CisaKevClient(),
-    identity: new T3nAgentIdentity({ baseUrl: options.baseUrl, apiKey: options.apiKey }),
+    identity: new T3nAgentIdentity({ baseUrl: options.baseUrl, apiKey: options.apiKey, did: options.did }),
   };
 }
