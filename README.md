@@ -41,18 +41,18 @@ No LLM is required for scoring, which keeps triage reproducible and avoids sendi
 
 ### T3N runtime
 
-Use `createT3nDependencies()` after authenticating a T3N `TenantClient` and obtaining the agent's opaque API key:
+The CLI can bootstrap a live T3N session from runtime configuration without storing credentials in the repository:
 
-```ts
-const deps = createT3nDependencies({
-  tenantClient,
-  baseUrl: process.env.T3N_BASE_URL!,
-  apiKey: process.env.T3N_AGENT_API_KEY!,
-  mapTail: 'incident-triage-private'
-});
+```powershell
+$env:T3N_ENVIRONMENT='testnet'
+$env:T3N_AGENT_API_KEY='<runtime-only-key>'
+npm run t3n:preflight
+npm exec -- tsx src/cli.ts --input examples/redacted-incident.json --runtime t3n
 ```
 
-The T3N adapter creates/uses a tenant map for private incident records and resolves the agent DID through T3N keyed discovery. The CLI intentionally refuses `--runtime t3n` without an authenticated dependency bundle rather than silently falling back.
+`T3N_API_KEY` remains accepted as a compatibility alias. `T3N_BASE_URL` is optional; the SDK environment URL is used when it is omitted. The bootstrap verifies the operator-signed trust manifest, performs the T3N handshake and authentication, constructs the authenticated `TenantClient`, provisions the private map on first use, and binds the session DID directly into the returned agent metadata.
+
+`npm run t3n:preflight` is deliberately fail-closed. It rejects a node manifest that lacks the non-empty RTMR1 allowlist required by the pinned SDK instead of downgrading the SDK or using `unsafe_trust_server`.
 ## Security boundaries
 
 - Raw incident bodies are never printed by the CLI.

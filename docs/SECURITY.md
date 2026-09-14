@@ -10,15 +10,17 @@ Public threat enrichment is restricted to the configured CISA KEV feed hostname.
 
 Only normalized CVE identifiers are sent to the threat-intelligence adapter. Incident descriptions and private indicators are not included in the enrichment request.
 
-## T3N storage
+## T3N storage and trust bootstrap
 
 `T3nPrivateStore` uses `TenantClient.maps.entrySet()` and `entryGet()` from `@terminal3/t3n-sdk` 5.15.2. It ensures the configured map exists and stores JSON-serialized values by namespaced key.
 
-The adapter is injected with an authenticated `TenantClient`; authentication material is not constructed or persisted by this project.
+For live CLI execution, the project bootstraps the authenticated `T3nClient` at runtime from an external signing key, verifies the operator-signed trust manifest before handshake, and constructs the `TenantClient` only after authentication succeeds. The project never persists the signing key or session material.
+
+The trust path is fail-closed: a live manifest must include the non-empty `rtmr1_allowlist` required by the pinned SDK. The project does not fall back to `unsafe_trust_server` and does not downgrade the SDK when the provider manifest is stale.
 
 ## Agent identity
 
-`T3nAgentIdentity` resolves the agent DID using `discoverWhoami()` with the opaque T3N agent API key. The key is passed at runtime and is never interpolated into errors or output.
+Live bootstrap binds the DID returned by the authenticated T3N session directly into `T3nAgentIdentity`, avoiding a redundant keyed discovery call. Programmatic integrations may still use `discoverWhoami()` when only a supported T3N API key is available. Credentials are never interpolated into errors or output.
 ## Delegation assumptions
 
 A deployed agent should receive only the contract functions and data scopes required for incident triage. T3N's delegation document supports function restrictions, read scopes, and `allowed_hosts`; the recommended policy grants only the triage storage contract/map access and CISA hostname required by this agent.
