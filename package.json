@@ -15,7 +15,7 @@
     "node": ">=24.0.0"
   },
   "dependencies": {
-    "@terminal3/t3n-sdk": "5.15.2",
+    "@terminal3/t3n-sdk": "5.2.0",
     "zod": "4.6.4"
   },
   "devDependencies": {
